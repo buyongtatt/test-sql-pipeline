@@ -23,6 +23,9 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+# Resolve ScriptPath to an absolute path immediately (before any directory changes)
+$ScriptPath = (Resolve-Path $ScriptPath).Path
+
 # Resolve sqlcmd.exe (SQL Server 2022 / ODBC 17 or 18 tools)
 $sqlcmdPaths = @(
     "C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\sqlcmd.exe",
