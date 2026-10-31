@@ -48,3 +48,22 @@ BEGIN
     PRINT 'Column [Address] already exists on [dbo].[Customers]. Skipping.';
 END
 GO
+
+--------------------------------------------------------------------------------
+-- Add DateOfBirth column if missing (safe to re-run).
+--------------------------------------------------------------------------------
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.columns
+    WHERE object_id = OBJECT_ID(N'[dbo].[Customers]')
+      AND name = N'DateOfBirth'
+)
+BEGIN
+    ALTER TABLE [dbo].[Customers] ADD [DateOfBirth] DATE NULL;
+    PRINT 'Added column [DateOfBirth] to [dbo].[Customers].';
+END
+ELSE
+BEGIN
+    PRINT 'Column [DateOfBirth] already exists on [dbo].[Customers]. Skipping.';
+END
+GO

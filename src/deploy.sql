@@ -20,6 +20,7 @@
 :r .\dbo\Tables\Orders.sql
 :r .\dbo\Tables\OrderItems.sql
 :r .\dbo\Tables\Products.sql
+:r .\dbo\Tables\Suppliers.sql
 
 --------------------------------------------------------------------------------
 -- 3. Stored procedures
@@ -28,6 +29,7 @@
 :r .\dbo\StoredProcedures\sp_InsertCustomer.sql
 :r .\dbo\StoredProcedures\sp_GetOrderSummary.sql
 :r .\dbo\StoredProcedures\sp_GetProductSales.sql
+:r .\dbo\StoredProcedures\sp_GetSupplierOrders.sql
 
 PRINT 'Deployment completed successfully.'
 GO
