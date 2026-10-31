@@ -1,0 +1,21 @@
+# Build outputs
+*.dacpac
+*.publish.xml
+/bin/
+/obj/
+
+# Logs
+*.log
+deploy.log
+
+# IDE / OS
+.vs/
+.idea/
+*.suo
+*.user
+Thumbs.db
+.DS_Store
+.env
+
+# OpenCode session config
+.opencode/

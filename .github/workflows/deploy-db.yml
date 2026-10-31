@@ -1,0 +1,44 @@
+name: Deploy SQL Database to Localhost
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    # Manual trigger with optional override of the target database
+    inputs:
+      serverInstance:
+        description: 'SQL Server instance (default: localhost)'
+        required: false
+        default: 'localhost'
+      databaseName:
+        description: 'Target database name'
+        required: false
+        default: 'SqlPipelineDemo'
+
+jobs:
+  deploy:
+    # IMPORTANT: Runs on a self-hosted runner so it can reach localhost.
+    # Register a runner on this machine and label it 'sql-db'.
+    runs-on: self-hosted
+    # Uncomment the next line to require a specific label:
+    # labels: sql-db
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Display SQL Server version
+        shell: pwsh
+        run: |
+          & "C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\sqlcmd.exe" -S localhost -E -Q "SELECT @@VERSION"
+
+      - name: Deploy database changes
+        shell: pwsh
+        env:
+          SERVER_INSTANCE: ${{ github.event.inputs.serverInstance || 'localhost' }}
+          DATABASE_NAME: ${{ github.event.inputs.databaseName || 'SqlPipelineDemo' }}
+        run: |
+          ./deploy.ps1 `
+            -ServerInstance $env:SERVER_INSTANCE `
+            -Database $env:DATABASE_NAME `
+            -ScriptPath ./src
