@@ -31,17 +31,20 @@ END
 GO
 
 --------------------------------------------------------------------------------
--- Example: add a column only if it is missing (safe to re-run).
--- Uncomment to test a schema change through the pipeline.
+-- Add Address column if missing (safe to re-run).
 --------------------------------------------------------------------------------
---IF NOT EXISTS (
---    SELECT 1
---    FROM sys.columns
---    WHERE object_id = OBJECT_ID(N'[dbo].[Customers]')
---      AND name = N'Address'
---)
---BEGIN
---    ALTER TABLE [dbo].[Customers] ADD [Address] NVARCHAR(200) NULL;
---    PRINT 'Added column [Address] to [dbo].[Customers].';
---END
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.columns
+    WHERE object_id = OBJECT_ID(N'[dbo].[Customers]')
+      AND name = N'Address'
+)
+BEGIN
+    ALTER TABLE [dbo].[Customers] ADD [Address] NVARCHAR(200) NULL;
+    PRINT 'Added column [Address] to [dbo].[Customers].';
+END
+ELSE
+BEGIN
+    PRINT 'Column [Address] already exists on [dbo].[Customers]. Skipping.';
+END
 GO

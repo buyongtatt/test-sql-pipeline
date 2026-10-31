@@ -3,7 +3,8 @@
 -- Returns all orders for a given customer, including order items.
 --------------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE [dbo].[sp_GetCustomerOrders]
-    @CustomerId INT
+    @CustomerId INT,
+    @Status     NVARCHAR(20) = NULL   -- optional: filter by order status
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -20,6 +21,7 @@ BEGIN
     FROM [dbo].[Orders] o
     LEFT JOIN [dbo].[OrderItems] i ON i.[OrderId] = o.[OrderId]
     WHERE o.[CustomerId] = @CustomerId
+      AND (@Status IS NULL OR o.[Status] = @Status)
     ORDER BY o.[OrderDate] DESC, i.[OrderItemId];
 END
 GO

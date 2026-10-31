@@ -19,6 +19,7 @@
 :r .\dbo\Tables\Customers.sql
 :r .\dbo\Tables\Orders.sql
 :r .\dbo\Tables\OrderItems.sql
+:r .\dbo\Tables\Products.sql
 
 --------------------------------------------------------------------------------
 -- 3. Stored procedures
@@ -26,6 +27,7 @@
 :r .\dbo\StoredProcedures\sp_GetCustomerOrders.sql
 :r .\dbo\StoredProcedures\sp_InsertCustomer.sql
 :r .\dbo\StoredProcedures\sp_GetOrderSummary.sql
+:r .\dbo\StoredProcedures\sp_GetProductSales.sql
 
 PRINT 'Deployment completed successfully.'
 GO
